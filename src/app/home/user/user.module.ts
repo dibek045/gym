@@ -19,8 +19,7 @@ import { MatTableModule } from '@angular/material/table';
   imports: [
     CommonModule,
     MaterialModuleModule,
-    FormsModule,
-    ReactiveFormsModule,
+    FormsModule,    ReactiveFormsModule,
     FlexLayoutModule
   ],
   providers:[EmployeeService,DatePipe,NotificationService]
