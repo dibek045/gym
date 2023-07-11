@@ -7,10 +7,10 @@ import * as _ from 'lodash';
 })
 export class DepartmentService {
  // departmentList: AngularFireList<any>;
-  array = [];
+  array = [{id:1,type:"day"},{id:2,type:"Mensual"},{id:3,type:"Anual"}];
 
   constructor() {
-  //  this.departmentList = this.firebase.list('departments');
+   // this.departmentList = this.firebase.list('departments');
   /*  this.departmentList.snapshotChanges().subscribe(
       list => {
         this.array = list.map(item => {

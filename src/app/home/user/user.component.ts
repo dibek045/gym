@@ -1,32 +1,36 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { EmployeeService } from 'src/app/shared/employee.service';
 import { UserFormComponent } from './user-form/user-form.component';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 1, name: 'David', dias: 1, actived: true},
-  {id: 2, name: 'Alejandro', dias: 2, actived:false},
-  {id: 3, name: 'Diana', dias: 6, actived: true},
-  {id: 4, name: 'Julia', dias: 9, actived:true},
-  {id: 5, name: 'Aaron', dias: 10, actived:true},
-  {id: 6, name: 'Luisa', dias: 12, actived:true},
-  {id: 7, name: 'Carlos', dias: 14, actived:true},
-  {id: 8, name: 'Kevin', dias: 15, actived:true},
-  {id: 9, name: 'Juan', dias: 18, actived:true},
-  {id: 10, name: 'Norma', dias: 20, actived:true},
+  { id: 1, name: 'David', created_at: '2023-06-30', actived: true },
+  { id: 2, name: 'Alejandro', created_at: '2023-07-01', actived: false },
+  { id: 3, name: 'Diana', created_at: '2023-07-05', actived: true },
+  { id: 4, name: 'Julia', created_at: '2023-07-08', actived: true },
+  { id: 5, name: 'Aaron', created_at: '2023-07-09', actived: true },
+  { id: 6, name: 'Luisa', created_at: '2023-07-11', actived: true },
+  { id: 7, name: 'Carlos', created_at: '2023-07-13', actived: true },
+  { id: 8, name: 'Kevin', created_at: '2023-07-14', actived: true },
+  { id: 9, name: 'Juan', created_at: '2023-07-17', actived: true },
+  { id: 10, name: 'Norma', created_at: '2023-07-19', actived: true },
+  { id: 15, name: 'Aaron', created_at: '2023-07-09', actived: true },
+  { id: 16, name: 'Luisa', created_at: '2023-07-11', actived: true },
+  { id: 17, name: 'Carlos', created_at: '2023-07-13', actived: true },
+  { id: 18, name: 'Kevin', created_at: '2023-07-14', actived: true },
+  { id: 19, name: 'Juan', created_at: '2023-07-17', actived: true },
+  { id: 20, name: 'Norma', created_at: '2023-07-19', actived: true },
 ];
+
 export interface PeriodicElement {
   id: number;
   name: string;
-  dias: number;
+  created_at: string;
   actived: boolean;
 }
 @Component({
@@ -37,6 +41,12 @@ export interface PeriodicElement {
   
 })
 export class UserComponent {
+
+  @ViewChild(MatSort)
+  sort: MatSort = new MatSort;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
     fullName: new FormControl('', Validators.required),
@@ -48,16 +58,27 @@ export class UserComponent {
     hireDate: new FormControl(''),
     isPermanent: new FormControl(false)
   });
+  
+  displayedColumns: string[] = ['id', 'name', 'created_at', 'actived'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  searchKey="";
+
   constructor(private service:EmployeeService,private dialog: MatDialog,){
+    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   }
-  displayedColumns: string[] = ['id', 'name', 'dias', 'actived'];
-  dataSource = ELEMENT_DATA;
-  searchKey="";
   onSearchClear(){}
 
-  applyFilter(){}
+  applyFilter(event: Event){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   initializeFormGroup() {
     this.form.setValue({
       $key: null,
@@ -77,7 +98,7 @@ export class UserComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "100%";
+    dialogConfig.width = "60%";
     this.dialog.open(UserFormComponent,dialogConfig);
   }
 }

@@ -1,0 +1,26 @@
+
+<div [ngSwitch]="fly" >
+    <div class="add-photo-button" (click)="openCamera()" *ngSwitchCase="'icon'" (click)="clickOutput(false,'open')">
+      <mat-icon>add_a_photo</mat-icon>
+    </div>
+    <div class="container mt-5" *ngSwitchCase="'open'" >
+      <div class="col-md-12">
+        <webcam
+          [trigger]="invokeObservable"
+          (imageCapture)="captureImg($event)"
+        ></webcam>
+      </div>
+      <div class="col-md-12" >
+        <div class="btn btn-danger" (click)="getSnapshot()">Capture Image</div>
+        <h2 (click)="clickOutput(false,'icon')">Volver</h2>
+
+      </div>
+   
+    </div>
+
+    <div class="col-12" *ngSwitchCase="'isTaken'" style="margin-left: 40px;">
+        <div id="results">Your taken image manifests here...</div>
+        <img [src]="webcamImage?.imageAsDataUrl" height="200px" />
+      </div>
+  </div>
+  

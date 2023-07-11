@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { WebcamImage } from 'ngx-webcam';
 import { DepartmentService } from 'src/app/shared/department.service';
 import { EmployeeService } from 'src/app/shared/employee.service';
 import { NotificationService } from 'src/app/shared/notification.service';
@@ -13,15 +14,18 @@ import { NotificationService } from 'src/app/shared/notification.service';
 export class UserFormComponent {
   isSingleColumnLayout = false; // Variable para controlar el diseño de las columnas
 
-
+  webcamImage: WebcamImage | undefined;
+  takePhoto:boolean=true;
+  handleImage($event: WebcamImage) {
+    this.webcamImage = $event;
+  }
   constructor(public service: EmployeeService,
-    private departmentService: DepartmentService,
+    public departmentService: DepartmentService,
     public notificationService: NotificationService,
     public dialogRef: MatDialogRef<UserFormComponent>){
-
   }
 
-  hireDate:string="";
+  birthDate:string="";
   
   ngOnInit() {
     this.service.getEmployees();
@@ -59,6 +63,10 @@ export class UserFormComponent {
     this.dialogRef.close();
     this.notificationService.success(':: Submitted successfully');
 
+  }
+
+  addItem(value: boolean) {
+    this.takePhoto=value;
   }
   }
 

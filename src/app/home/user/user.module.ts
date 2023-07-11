@@ -9,18 +9,20 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/shared/notification.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
+import { PhotoComponent } from 'src/app/shared/photo/photo.component';
+import { WebcamModule } from 'ngx-webcam';
 
 
 
 @NgModule({
   declarations: [
-    UserFormComponent,UserComponent
+    UserFormComponent,UserComponent,PhotoComponent
   ],
   imports: [
     CommonModule,
     MaterialModuleModule,
     FormsModule,    ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,WebcamModule
   ],
   providers:[EmployeeService,DatePipe,NotificationService]
 })

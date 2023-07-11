@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationService } from './shared/notification.service';
+import { PhotoComponent } from './shared/photo/photo.component';
+import { WebcamModule } from 'ngx-webcam';
 
 
 @NgModule({
@@ -34,9 +36,11 @@ import { NotificationService } from './shared/notification.service';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    
   ],
   providers: [NotificationService],
+  schemas: [NO_ERRORS_SCHEMA], // Agrega esta línea
 
   bootstrap: [AppComponent],
 })

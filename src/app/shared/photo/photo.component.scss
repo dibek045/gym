@@ -1,0 +1,21 @@
+.add-photo-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  background-color: #f1f1f1;
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 20px;
+  cursor: pointer;
+  
+    mat-icon {
+      font-size: 150px;
+      color: #555555;
+      height: 150px;
+      width: 150px;
+    }
+  }
+  

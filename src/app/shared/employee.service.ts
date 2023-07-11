@@ -19,7 +19,7 @@ export class EmployeeService {
     city: new FormControl(''),
     gender: new FormControl('1'),
     department: new FormControl(0),
-    hireDate: new FormControl(''),
+    birthDate: new FormControl(''),
     isPermanent: new FormControl(false)
   });
 
@@ -32,7 +32,7 @@ export class EmployeeService {
       city: '',
       gender: '1',
       department: 0,
-      hireDate: '',
+      birthDate: '',
       isPermanent: false
     });
   }
@@ -51,7 +51,7 @@ export class EmployeeService {
       city: employee.city,
       gender: employee.gender,
       department: employee.department,
-      hireDate: employee.hireDate == "" ? "" : this.datePipe.transform(employee.hireDate, 'yyyy-MM-dd'),
+      birthDate: employee.hireDate == "" ? "" : this.datePipe.transform(employee.hireDate, 'yyyy-MM-dd'),
       isPermanent: employee.isPermanent
     });
   }
@@ -65,7 +65,7 @@ export class EmployeeService {
         city: employee.city,
         gender: employee.gender,
         department: employee.department,
-        hireDate: employee.hireDate == "" ? "" : this.datePipe.transform(employee.hireDate, 'yyyy-MM-dd'),
+        birthDate: employee.hireDate == "" ? "" : this.datePipe.transform(employee.hireDate, 'yyyy-MM-dd'),
         isPermanent: employee.isPermanent
       });
   }
